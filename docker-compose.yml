@@ -1,0 +1,22 @@
+version: '3.1'
+services:
+  app:
+    container_name: inventoryapp
+    image: umeshkumarchamp/inventoryapp  # Set the desired image name and tag
+    build: ./
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres_con
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres_con:5432/flywaydb
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
+  postgres_con:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=flywaydb
